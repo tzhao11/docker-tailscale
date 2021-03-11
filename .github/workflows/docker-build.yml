@@ -1,4 +1,4 @@
-name: Docker Build
+name: Build and push Docker image
 
 on:
   schedule:
@@ -43,4 +43,6 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64,linux/386,linux/arm/v7,linux/arm/v6
           push: true
-          tags: tzhao11/tailscale:latest
+          tags: |
+            tzhao11/tailscale:latest
+            tzhao11/tailscale:${{ steps.latest-release.outputs.release }}
