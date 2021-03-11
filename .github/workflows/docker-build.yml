@@ -11,10 +11,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Get latest release version
+        uses: pozetroninc/github-action-get-latest-release@master
+        id: latest-release
+        with:
+          owner: tailscale
+          repo: tailscale
+          excludes: prerelease, draft
+          
       - name: Checkout
         uses: actions/checkout@v2
         with:
           repository: 'tailscale/tailscale'
+          ref: ${{ steps.latest-release.outputs.release }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
